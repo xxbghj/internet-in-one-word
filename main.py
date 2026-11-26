@@ -15,6 +15,12 @@ WORD = "everything"
 
 
 def main() -> None:
+    # Gate check: the entry must be a single word, 1-30 characters,
+    # with no whitespace of any kind, before anything is written.
+    if not (1 <= len(WORD) <= 30):
+        raise ValueError(f"entry word must be 1-30 characters, got {len(WORD)}: {WORD!r}")
+    if len(WORD.split()) != 1 or any(ch.isspace() for ch in WORD):
+        raise ValueError(f"entry must be a single word with no whitespace, got {WORD!r}")
     os.umask(0o022)
     os.makedirs("/output", exist_ok=True)
     path = "/output/entry.txt"
